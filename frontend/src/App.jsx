@@ -1,14 +1,15 @@
-import React, { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AlertTriangle } from "lucide-react";
 import { useBackendStatus } from "./hooks/useBackendStatus.js";
 import "./styles/index.css";
 
 // Lazy-loaded pages for code splitting
-const HomePage = React.lazy(() => import("./pages/HomePage.jsx"));
-const KlasifikasiPage = React.lazy(() => import("./pages/KlasifikasiPage.jsx"));
-const RiwayatPage = React.lazy(() => import("./pages/RiwayatPage.jsx"));
-const TentangModelPage = React.lazy(() => import("./pages/TentangModelPage.jsx"));
-const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage.jsx"));
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+const KlasifikasiPage = lazy(() => import("./pages/KlasifikasiPage.jsx"));
+const RiwayatPage = lazy(() => import("./pages/RiwayatPage.jsx"));
+const TentangModelPage = lazy(() => import("./pages/TentangModelPage.jsx"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage.jsx"));
 
 function PageLoader() {
   return (
@@ -48,7 +49,8 @@ export default function App() {
             position: "relative",
           }}
         >
-          <span>⚠ Server tidak dapat dihubungi. Beberapa fitur mungkin tidak tersedia.</span>
+          <AlertTriangle size={16} style={{ flexShrink: 0 }} />
+          <span>Server tidak dapat dihubungi. Beberapa fitur mungkin tidak tersedia.</span>
           <button
             type="button"
             className="btn btn-ghost btn-sm"

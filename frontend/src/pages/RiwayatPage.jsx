@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Clock,
   Trash2,
@@ -6,7 +6,6 @@ import {
   Info,
   AlertCircle,
   ChevronDown,
-  Plus,
   Eye,
 } from "lucide-react";
 import Layout from "../components/layout/Layout.jsx";

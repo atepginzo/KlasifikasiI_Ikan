@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Fish, Github, AlertCircle } from "lucide-react";
+import { Fish, AlertCircle } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();

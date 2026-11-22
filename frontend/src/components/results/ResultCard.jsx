@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import { CheckCircle2, AlertTriangle, Info, Clock } from "lucide-react";
+import { AlertTriangle, Info, Clock } from "lucide-react";
 import ProbabilityBar from "./ProbabilityBar.jsx";
 import { LOW_CONFIDENCE_THRESHOLD, SMALL_SUPPORT_THRESHOLD } from "../../config/thresholds.js";
 
@@ -9,7 +8,7 @@ export default function ResultCard({ result, perClassMetrics, focusRef }) {
     confidence,
     top5,
     inference_ms,
-    prediction_id,
+    prediction_id: _prediction_id,
   } = result;
 
   const confidencePct = (confidence * 100).toLocaleString("id-ID", {

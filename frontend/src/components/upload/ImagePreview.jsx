@@ -1,4 +1,3 @@
-import React from "react";
 import { X, RefreshCcw, FileImage } from "lucide-react";
 
 function formatBytes(bytes) {

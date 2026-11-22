@@ -77,7 +77,7 @@ async function request(path, options = {}) {
   return data;
 }
 
-function mapErrorToMessage(status, serverMsg, code) {
+function mapErrorToMessage(status, serverMsg, _code) {
   switch (status) {
     case 415:
       return "Format tidak didukung. Gunakan JPG, PNG, atau WebP.";

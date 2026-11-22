@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ThumbsUp, ThumbsDown, ChevronDown, CheckCircle2, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { ThumbsUp, ThumbsDown, CheckCircle2, AlertCircle } from "lucide-react";
 import { sendFeedback } from "../../services/api.js";
 
 const FISH_LABELS = Array.from({ length: 23 }, (_, i) => `fish_${String(i + 1).padStart(2, "0")}`);
@@ -8,7 +8,6 @@ export default function FeedbackForm({ predictionId }) {
   const [feedbackState, setFeedbackState] = useState("idle"); // idle | correct | incorrect | submitting | done | error
   const [correctedClass, setCorrectedClass] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
   if (!predictionId) return null;
@@ -18,7 +17,6 @@ export default function FeedbackForm({ predictionId }) {
     setErrorMsg(null);
     try {
       await sendFeedback(predictionId, { is_correct: true });
-      setSubmitted(true);
       setFeedbackState("done_correct");
     } catch (e) {
       setErrorMsg(e?.message ?? "Gagal mengirim umpan balik.");
@@ -40,7 +38,6 @@ export default function FeedbackForm({ predictionId }) {
         ...(correctedClass ? { corrected_class: correctedClass } : {}),
       };
       await sendFeedback(predictionId, payload);
-      setSubmitted(true);
       setFeedbackState("done_incorrect");
     } catch (e) {
       setErrorMsg(e?.message ?? "Gagal mengirim umpan balik.");
@@ -58,7 +55,7 @@ export default function FeedbackForm({ predictionId }) {
           <button
             type="button"
             className="btn btn-ghost btn-sm"
-            onClick={() => { setFeedbackState("idle"); setSubmitted(false); setCorrectedClass(""); }}
+            onClick={() => { setFeedbackState("idle"); setCorrectedClass(""); }}
             style={{ padding: "0 4px", minHeight: "auto" }}
           >
             Ubah

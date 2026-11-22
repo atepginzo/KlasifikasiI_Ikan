@@ -1,11 +1,10 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import {
   RotateCcw,
   Zap,
   ShieldCheck,
   AlertTriangle,
   WifiOff,
-  Loader2,
 } from "lucide-react";
 import Layout from "../components/layout/Layout.jsx";
 import DropZone from "../components/upload/DropZone.jsx";
@@ -13,6 +12,18 @@ import ImagePreview from "../components/upload/ImagePreview.jsx";
 import ResultCard from "../components/results/ResultCard.jsx";
 import FeedbackForm from "../components/feedback/FeedbackForm.jsx";
 import { usePrediction } from "../hooks/usePrediction.js";
+
+function SkeletonResult() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div className="skeleton" style={{ height: "28px", width: "60%" }} />
+      <div className="skeleton" style={{ height: "80px" }} />
+      <div className="skeleton" style={{ height: "16px", width: "80%" }} />
+      <div className="skeleton" style={{ height: "16px", width: "70%" }} />
+      <div className="skeleton" style={{ height: "16px", width: "75%" }} />
+    </div>
+  );
+}
 
 export default function KlasifikasiPage({ backendStatus, modelInfo }) {
   const { state, selectFile, predict, reset } = usePrediction();
@@ -49,17 +60,6 @@ export default function KlasifikasiPage({ backendStatus, modelInfo }) {
   const canClassify =
     phase === "selected" &&
     backendStatus === "ok";
-
-  // Skeleton while predicting
-  const SkeletonResult = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-      <div className="skeleton" style={{ height: "28px", width: "60%" }} />
-      <div className="skeleton" style={{ height: "80px" }} />
-      <div className="skeleton" style={{ height: "16px", width: "80%" }} />
-      <div className="skeleton" style={{ height: "16px", width: "70%" }} />
-      <div className="skeleton" style={{ height: "16px", width: "75%" }} />
-    </div>
-  );
 
   return (
     <Layout>

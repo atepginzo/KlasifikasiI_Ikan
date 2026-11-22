@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Fish, ArrowLeft } from "lucide-react";
 import Layout from "../components/layout/Layout.jsx";

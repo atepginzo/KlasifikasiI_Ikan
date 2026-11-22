@@ -1,5 +1,3 @@
-import React, { useEffect, useRef } from "react";
-
 /**
  * Animated horizontal probability bar.
  * Uses CSS animation for the fill transition.

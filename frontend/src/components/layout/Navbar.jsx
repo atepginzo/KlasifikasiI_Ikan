@@ -1,7 +1,6 @@
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { Fish, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { Fish, Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { to: "/", label: "Beranda" },
