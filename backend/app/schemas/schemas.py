@@ -19,6 +19,27 @@ class HealthResponse(BaseModel):
 # --- Model Info ---
 
 
+class ModelLimits(BaseModel):
+    max_upload_mb: int
+    allowed_types: list[str]
+    allowed_extensions: list[str]
+
+
+class MetricsSummary(BaseModel):
+    accuracy: float
+    macro_f1: float
+    weighted_f1: float
+    test_samples: int
+
+
+class PerClassMetric(BaseModel):
+    class_name: str
+    precision: float
+    recall: float
+    f1: float
+    support: int
+
+
 class ModelLimitations(BaseModel):
     weak_classes: list[dict[str, object]]
     notes: list[str]
@@ -32,6 +53,9 @@ class ModelInfoResponse(BaseModel):
     normalization: str
     metrics: dict[str, float]
     limitations: ModelLimitations
+    limits: ModelLimits
+    metrics_summary: MetricsSummary | None = None
+    per_class_metrics: list[PerClassMetric] | None = None
 
 
 # --- Prediction ---
