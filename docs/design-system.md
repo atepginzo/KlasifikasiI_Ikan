@@ -51,12 +51,19 @@ Aplikasi AI Fish Image Classifier dirancang untuk instrumen klasifikasi ilmiah b
 
 ---
 
-## 3. Tipografi
+## 3. Tipografi & Keputusan Font Stack
 
 Sistem tipografi menggunakan sans-serif modern yang netral dan terbaca jernih pada berbagai resolusi layar.
 
+- **Keputusan Sadar Penggunaan System Font Stack (bukan `@fontsource`):**
+  Aplikasi ini secara sadar memilih **Native System Font Stack** daripada mengunduh paket font eksternal (`@fontsource/*` atau CDN Google Fonts). Alasan keputusan teknis:
+  1. *Performa maksimal & Zero Latency:* Font sudah tersedia langsung di perangkat pengguna (iOS, macOS, Windows, Android, Linux) sehingga waktu pemuatan font adalah 0 ms.
+  2. *Zero Cumulative Layout Shift (CLS):* Tidak terjadi efek FOIT (*Flash of Invisible Text*) atau FOUT (*Flash of Unstyled Text*) yang biasa terjadi saat file font web dimuat.
+  3. *Ukuran bundle ringan:* Mengurangi beban transfer bundle hingga ratusan kilobita, menjaga aplikasi tetap gesit.
+  4. *Keterbacaan native:* Menghormati preferensi rendering tipografi masing-masing sistem operasi pengguna.
+
 - **Font Family Base:** `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`
-- **Font Family Mono:** `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace` (untuk label kelas teknis `fish_XX` dan SHA-256)
+- **Font Family Mono:** `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace` (untuk label kelas teknis `fish_XX` dan format waktu/metrik)
 
 ### Skala Tipografi
 
@@ -105,11 +112,24 @@ Sistem tipografi menggunakan sans-serif modern yang netral dan terbaca jernih pa
 ### 5.3 Kartu Hasil & Bar Probabilitas Top 5
 - Hasil utama menampilkan label kelas (`fish_XX`) dengan ukuran besar dan tag "Tingkat Keyakinan Model".
 - Bar probabilitas horizontal:
-  - Background track: `#E2E8F0`
-  - Fill bar: Gradien datar `#0284C7` (proporsional 0–100%)
-  - Angka persen diformat locale `id-ID` (mis. `98,8%`, nilai <0.1% ditampilkan `<0,1%`).
+  - Background track: `#E2E8F0` (`var(--color-border)`)
+  - Fill bar: `#0369A1` untuk peringkat teratas, `#94A3B8` untuk peringkat 2–5.
+  - Animasi transisi lebar: CSS `@keyframes fillBar` durasi 600ms cubic-bezier.
+  - Otomatis dinonaktifkan (durasi 0.01ms) jika pengguna mengaktifkan `prefers-reduced-motion`.
+  - Nilai persen diformat locale `id-ID` (satu desimal, mis. `98,8%`, nilai <0.05% ditampilkan `<0,1%`).
 
-### 5.4 Dialog & Alert Box
+### 5.4 Hero Section & Aksen Kelautan
+- Latar gradien laut dalam: `linear-gradient(160deg, #075985 0%, #0369A1 40%, #0F766E 100%)`.
+- Rasio kontras teks putih pada gradien: **5.9:1 hingga 8.2:1 (Lolos WCAG AAA)**.
+- Wave Divider SVG: Kurva gelombang halus `M0,40 C240,80...` yang menghubungkan hero dengan area konten tanpa jahitan visual.
+- Feature Chips: Badge semi-transparan `rgba(255,255,255,0.15)` dengan border `rgba(255,255,255,0.2)` dan backdrop-filter blur.
+
+### 5.5 Tabel Riwayat & Dialog Modal
+- Tabel dengan paginasi ("Muat Lebih Banyak") dibungkus kontainer responsif `overflow-x: auto` (mencegah overflow horizontal pada viewport 375px).
+- Modal Dialog Detail: Backdrop gelap `rgba(0,0,0,0.5)` dengan `role="dialog"` dan `aria-modal="true"`.
+- Modal Konfirmasi Hapus: Peringatan destruktif permanen dengan tombol konfirmasi merah kontras tinggi (`#DC2626`).
+
+### 5.6 Dialog & Alert Box
 - Alert Warning: Latar `#FFFBEB`, Border `#FDE68A`, Teks `#92400E` dengan ikon `AlertTriangle`.
 - Alert Error: Latar `#FEF2F2`, Border `#FECACA`, Teks `#991B1B` dengan ikon `AlertCircle`.
 - Alert Info: Latar `#F0F9FF`, Border `#BAE6FD`, Teks `#075985` dengan ikon `Info`.

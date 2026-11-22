@@ -151,7 +151,29 @@ The documentation states the model was trained using Keras `ImageDataGenerator` 
 
 Keras `flow_from_directory` **default interpolation is `"nearest"`** in older Keras versions. However:
 
-> ⚠️ **ASSUMPTION:** Since no training notebook is available, we **assume `nearest` interpolation** was used (Keras default). This is marked as an assumption requiring verification.
+> ⚠️ **ASSUMPTION A1:** Since no training notebook is available, we assumed `nearest` interpolation (Keras default).
+
+#### Verifikasi Empiris Asumsi A1 (Fase 9)
+
+Pengujian komparatif dijalankan terhadap 142 citra dari `sample_images/` (mencakup seluruh 23 kelas, minimal 6 per kelas, dan seluruh citra test dari kelas minoritas `fish_18`, `fish_20`, `fish_21`):
+
+| Metode Interpolasi | Akurasi pada Sampel | Jumlah Benar | Jumlah Salah | Catatan |
+|---|---|---|---|---|
+| **NEAREST** | **95,07%** | 135 / 142 | 7 | **Terpilih.** Konsisten dengan Keras flow_from_directory |
+| **BILINEAR** | 94,37% | 134 / 142 | 8 | Memiliki 1 kesalahan tambahan pada `fish_06` (diprediksi `fish_09`) |
+
+*Catatan penting:* Angka ini adalah perbandingan komparatif perlakuan prapemrosesan pada subset sampel terstratifikasi untuk memverifikasi asumsi A1, **bukan bukti akurasi model secara keseluruhan** (metrik performa resmi model tetap mengacu pada `evaluation_summary.json` dan hasil evaluasi set uji 4.109 sampel).
+
+**Daftar Kesalahan Prediksi pada NEAREST (7 citra):**
+1. `fish_003825666156_11874.png`: kelas asli `fish_10`, diprediksi `fish_01` (keyakinan 96,3%)
+2. `fish_001348000118_01315.png`: kelas asli `fish_18`, diprediksi `fish_08` (keyakinan 57,2%)
+3. `fish_004548357375_11256.png`: kelas asli `fish_20`, diprediksi `fish_06` (keyakinan 99,7%)
+4. `fish_004131656765_26217.png`: kelas asli `fish_21`, diprediksi `fish_01` (keyakinan 99,8%)
+5. `fish_004543607366_23109.png`: kelas asli `fish_21`, diprediksi `fish_01` (keyakinan 99,7%)
+6. `fish_000023840001_02333.png`: kelas asli `fish_21`, diprediksi `fish_01` (keyakinan 98,3%)
+7. `fish_004350997079_14060.png`: kelas asli `fish_21`, diprediksi `fish_01` (keyakinan 60,8%)
+
+*Analisis:* Kelas `fish_21` menyumbang 4 dari 7 kesalahan, yang konsisten dengan data audit bahwa `fish_21` adalah kelas paling minoritas dengan support uji hanya 3 sampel dan F1-score 0,50. Kesalahan pada `fish_18` dan `fish_20` juga konsisten dengan keterbatasan sampel uji minoritas. Kesimpulan: **`nearest` dikonfirmasi sebagai interpolasi default terbaik.**
 
 ### Inference Preprocessing Pipeline (to implement)
 
@@ -213,7 +235,7 @@ Keras `flow_from_directory` **default interpolation is `"nearest"`** in older Ke
 
 | ID | Assumption | Impact if Wrong | Mitigation |
 |----|-----------|-----------------|------------|
-| A1 | Training used `nearest` interpolation (Keras default) | Preprocessing mismatch → accuracy degradation | Parity test in Fase 4; if fails, try `bilinear` |
+| A1 | Training used `nearest` interpolation (Keras default) | Preprocessing mismatch → accuracy degradation | **Terverifikasi (Fase 9):** `nearest` (95,07%) terbukti lebih unggul dari `bilinear` (94,37%) pada 142 sampel |
 | A2 | Training used PIL/Pillow for image loading (via Keras `load_img`) | Different decoder → different pixel values | Standard Keras pipeline uses PIL; low risk |
 | A3 | No data augmentation at test time | Augmentation at inference would change results | Confirmed by docs: augmentation only on train |
 

@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     # Upload limits
     max_upload_mb: int = 5
     max_image_pixels: int = 25_000_000
+    preprocess_interpolation: str = "nearest"
 
     # CORS
     allowed_origins: str = "http://localhost:5173"

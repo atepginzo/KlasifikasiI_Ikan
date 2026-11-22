@@ -14,8 +14,12 @@ from app.core.config import settings
 
 logger = logging.getLogger("app.predictor")
 
-# Interpolation method — matches Keras flow_from_directory default
-INTERPOLATION = Image.NEAREST
+def _get_interpolation():
+    method = getattr(settings, "preprocess_interpolation", "nearest").lower()
+    if method == "bilinear":
+        return Image.BILINEAR
+    return Image.NEAREST
+
 IMAGE_SIZE = (128, 128)
 
 
@@ -112,16 +116,17 @@ class PredictorService:
             raise ValueError(f"Warm-up probability sum {prob_sum} != ~1.0")
         logger.info("Model warm-up complete (prob sum=%.4f)", prob_sum)
 
-    def preprocess(self, img: Image.Image) -> np.ndarray:
+    def preprocess(self, img: Image.Image, interpolation: int | None = None) -> np.ndarray:
         """Preprocess a PIL RGB image to model input tensor.
 
         Pipeline (must match training/evaluation):
-        1. Resize to 128x128 with NEAREST interpolation
+        1. Resize to 128x128 with configured interpolation (default NEAREST)
         2. Convert to float32 array
         3. Rescale to 0-1 range (/ 255.0)
         4. Add batch dimension
         """
-        img_resized = img.resize(IMAGE_SIZE, INTERPOLATION)
+        interp = interpolation if interpolation is not None else _get_interpolation()
+        img_resized = img.resize(IMAGE_SIZE, interp)
         arr = np.asarray(img_resized, dtype=np.float32)
         arr = arr / 255.0
         return np.expand_dims(arr, axis=0)
