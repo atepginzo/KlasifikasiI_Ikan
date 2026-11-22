@@ -1,0 +1,12 @@
+{
+    "model_name": "AI Fish Image Classifier",
+    "architecture": "Custom CNN",
+    "image_size": [
+        128,
+        128
+    ],
+    "color_mode": "RGB",
+    "num_classes": 23,
+    "normalization": "rescale 1./255",
+    "model_file": "best_fish_cnn.keras"
+}
