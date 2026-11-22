@@ -1,6 +1,11 @@
-@import "./tokens.css";
+/**
+ * Global CSS — base styles, layout, and component classes
+ * Oceanic theme, WCAG AA compliant
+ */
 
-/* Base Resets */
+@import url("./tokens.css");
+
+/* ─── Reset & Base ─── */
 *,
 *::before,
 *::after {
@@ -9,199 +14,411 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--color-text-main);
   background-color: var(--color-bg);
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
 }
 
 a {
   color: var(--color-primary);
   text-decoration: none;
-  transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-primary-hover);
   text-decoration: underline;
 }
 
-button {
-  font-family: inherit;
-  font-size: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
+code {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  background: var(--color-primary-light);
+  color: var(--color-primary-hover);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
 }
 
-button:focus-visible,
-a:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--line-height-tight);
+  color: var(--color-text-main);
 }
 
-/* Utilities */
+/* ─── Layout ─── */
 .container {
   width: 100%;
   max-width: var(--max-content-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-4);
-  padding-right: var(--space-4);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-/* Card */
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* ─── Cards ─── */
 .card {
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
   box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
 }
 
-/* Buttons */
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Buttons ─── */
 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: 0.625rem 1.25rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+  line-height: 1.5;
   border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  cursor: pointer;
   transition: all var(--transition-fast);
-  min-height: 44px; /* Touch target minimum */
+  white-space: nowrap;
+  min-height: 2.5rem;
+  text-decoration: none;
 }
 
-.btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
-}
-
-.btn-secondary {
-  background-color: var(--color-surface);
-  color: var(--color-text-main);
-  border: 1px solid var(--color-border);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-border-hover);
-}
-
-.btn-ghost {
-  color: var(--color-primary);
-  background-color: transparent;
-}
-
-.btn-ghost:hover:not(:disabled) {
-  background-color: var(--color-primary-light);
-}
-
-.btn-danger {
-  background-color: var(--color-danger);
-  color: var(--color-on-danger);
-}
-
-.btn-danger:hover:not(:disabled) {
-  background-color: var(--color-danger-hover);
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-/* Badge */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+  background: var(--color-primary-active);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+.btn-ghost:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-main);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-on-danger);
+  border-color: var(--color-danger);
+}
+
+.btn-danger:hover {
+  background: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+.btn-success {
+  background: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+
+.btn-success:hover {
+  background: #047857;
+}
+
+.btn-sm {
+  padding: 0.3rem 0.875rem;
+  font-size: var(--font-size-xs);
+  min-height: 2rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.75rem;
+  font-size: var(--font-size-base);
+  min-height: 3rem;
+}
+
+/* ─── Badges ─── */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 0.25rem 0.625rem;
+  gap: 0.3rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-full);
+  line-height: 1.4;
 }
 
 .badge-primary {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary-hover);
+}
+
+.badge-secondary {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary-hover);
 }
 
 .badge-success {
-  background-color: var(--color-success-bg);
+  background: var(--color-success-bg);
   color: var(--color-success);
+  border: 1px solid var(--color-success-border);
 }
 
 .badge-warning {
-  background-color: var(--color-warning-bg);
+  background: var(--color-warning-bg);
   color: var(--color-warning-text);
   border: 1px solid var(--color-warning-border);
 }
 
 .badge-danger {
-  background-color: var(--color-danger-bg);
+  background: var(--color-danger-bg);
   color: var(--color-danger);
+  border: 1px solid var(--color-danger-border);
 }
 
-/* Alert Boxes */
+.badge-neutral {
+  background: var(--color-surface-hover);
+  color: var(--color-text-muted);
+}
+
+/* ─── Alerts ─── */
 .alert {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
-  margin-bottom: var(--space-4);
+  line-height: var(--line-height-normal);
+  border: 1px solid;
+}
+
+.alert-info {
+  background: var(--color-info-bg);
+  border-color: var(--color-info-border);
+  color: #0c4a6e;
+}
+
+.alert-success {
+  background: var(--color-success-bg);
+  border-color: var(--color-success-border);
+  color: #064e3b;
 }
 
 .alert-warning {
-  background-color: var(--color-warning-bg);
-  border: 1px solid var(--color-warning-border);
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
   color: var(--color-warning-text);
 }
 
 .alert-danger {
-  background-color: var(--color-danger-bg);
-  border: 1px solid var(--color-danger-border);
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
   color: #991b1b;
 }
 
-.alert-info {
-  background-color: var(--color-info-bg);
-  border: 1px solid var(--color-info-border);
-  color: #075985;
-}
-
-/* Data Table */
+/* ─── Tables ─── */
 .data-table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--font-size-sm);
 }
 
-.data-table th,
-.data-table td {
-  padding: var(--space-3) var(--space-4);
-  text-align: left;
-  border-bottom: 1px solid var(--color-border);
-}
-
 .data-table th {
-  background-color: var(--color-bg);
-  color: var(--color-text-muted);
+  text-align: left;
+  padding: 0.625rem 0.875rem;
   font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-bg);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
 }
 
-.data-table tr:hover td {
-  background-color: var(--color-bg);
+.data-table th:hover {
+  color: var(--color-primary);
+}
+
+.data-table td {
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+  background: var(--color-bg);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── Skeleton Loader ─── */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-surface-hover) 50%, var(--color-border) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Spinner ─── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.spinner-lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 3px;
+}
+
+/* ─── Progress / Probability Bar ─── */
+@keyframes fillBar {
+  from { width: 0; }
+  to { width: var(--bar-width); }
+}
+
+.prob-bar-track {
+  height: 10px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.prob-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  animation: fillBar 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ─── Dropzone ─── */
+.dropzone {
+  border: 2px dashed var(--color-border-hover);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: var(--color-bg);
+  position: relative;
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.dropzone:focus-within {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ─── Wave Decoration ─── */
+.wave-divider {
+  line-height: 0;
+  overflow: hidden;
+}
+
+/* ─── Utility ─── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-mono {
+  font-family: var(--font-family-mono);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Focus Ring on interactive elements ─── */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
