@@ -68,6 +68,12 @@ class PredictorService:
 
     def _load_model(self) -> None:
         import os
+        import tempfile
+
+        if "KERAS_HOME" not in os.environ:
+            keras_dir = os.path.join(tempfile.gettempdir(), "keras_runtime")
+            os.makedirs(keras_dir, exist_ok=True)
+            os.environ["KERAS_HOME"] = keras_dir
 
         os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
         os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"

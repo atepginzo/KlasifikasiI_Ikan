@@ -5,12 +5,17 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+from app.core.config import settings
 from app.db.base import Base
 from app.db.models import Feedback, Prediction  # noqa: F401 — register models
 
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+# Override with environment DATABASE_URL if available
+if settings.database_url:
+    config.set_main_option("sqlalchemy.url", settings.database_url)
 
 target_metadata = Base.metadata
 
