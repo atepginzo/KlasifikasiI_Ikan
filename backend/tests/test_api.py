@@ -57,6 +57,64 @@ class TestModelInfoEndpoint:
         assert len(data["limitations"]["weak_classes"]) > 0
         assert len(data["limitations"]["notes"]) > 0
 
+    def test_model_info_has_limits(self, client):
+        resp = client.get("/api/v1/model-info")
+        if resp.status_code == 503:
+            pytest.skip("Model not loaded")
+        data = resp.json()
+        assert "limits" in data
+        assert data["limits"]["max_upload_mb"] == 5
+        assert "image/jpeg" in data["limits"]["allowed_types"]
+        assert ".jpg" in data["limits"]["allowed_extensions"]
+
+    def test_model_info_has_metrics_summary(self, client):
+        resp = client.get("/api/v1/model-info")
+        if resp.status_code == 503:
+            pytest.skip("Model not loaded")
+        data = resp.json()
+        assert data.get("metrics_summary") is not None
+        summary = data["metrics_summary"]
+        assert summary["accuracy"] == 0.9917
+        assert summary["macro_f1"] == 0.9361
+        assert summary["weighted_f1"] == 0.9916
+        assert summary["test_samples"] == 4109
+
+    def test_model_info_has_per_class_metrics(self, client):
+        resp = client.get("/api/v1/model-info")
+        if resp.status_code == 503:
+            pytest.skip("Model not loaded")
+        data = resp.json()
+        assert data.get("per_class_metrics") is not None
+        pcm = data["per_class_metrics"]
+        assert len(pcm) == 23
+        class_names = [item["class_name"] for item in pcm]
+        assert class_names == [f"fish_{i:02d}" for i in range(1, 24)]
+        # Check first item (fish_01)
+        fish_01 = pcm[0]
+        assert fish_01["class_name"] == "fish_01"
+        assert fish_01["support"] == 1820
+        assert fish_01["precision"] == 0.9918
+
+    def test_model_info_when_summary_file_missing(self, client, monkeypatch):
+        from pathlib import Path
+
+        def fake_exists(self):
+            if "evaluation_summary.json" in str(self):
+                return False
+            return original_exists(self)
+
+        original_exists = Path.exists
+        monkeypatch.setattr(Path, "exists", fake_exists)
+
+        resp = client.get("/api/v1/model-info")
+        if resp.status_code == 503:
+            pytest.skip("Model not loaded")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["limits"]["max_upload_mb"] == 5
+        assert data["metrics_summary"] is None
+        assert data["per_class_metrics"] is None
+
 
 class TestPredictEndpoint:
     """Tests for POST /api/v1/predict."""

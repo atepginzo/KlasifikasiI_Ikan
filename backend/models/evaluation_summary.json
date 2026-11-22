@@ -1,0 +1,171 @@
+{
+  "metrics_summary": {
+    "accuracy": 0.9917,
+    "macro_f1": 0.9361,
+    "weighted_f1": 0.9916,
+    "test_samples": 4109
+  },
+  "per_class_metrics": [
+    {
+      "class_name": "fish_01",
+      "precision": 0.9918,
+      "recall": 0.9956,
+      "f1": 0.9937,
+      "support": 1820
+    },
+    {
+      "class_name": "fish_02",
+      "precision": 0.995,
+      "recall": 0.99,
+      "f1": 0.9925,
+      "support": 402
+    },
+    {
+      "class_name": "fish_03",
+      "precision": 0.9925,
+      "recall": 0.987,
+      "f1": 0.9898,
+      "support": 539
+    },
+    {
+      "class_name": "fish_04",
+      "precision": 0.9984,
+      "recall": 0.9967,
+      "f1": 0.9975,
+      "support": 608
+    },
+    {
+      "class_name": "fish_05",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 380
+    },
+    {
+      "class_name": "fish_06",
+      "precision": 0.9333,
+      "recall": 1.0,
+      "f1": 0.9655,
+      "support": 28
+    },
+    {
+      "class_name": "fish_07",
+      "precision": 0.9855,
+      "recall": 1.0,
+      "f1": 0.9927,
+      "support": 68
+    },
+    {
+      "class_name": "fish_08",
+      "precision": 0.9412,
+      "recall": 0.9697,
+      "f1": 0.9552,
+      "support": 33
+    },
+    {
+      "class_name": "fish_09",
+      "precision": 1.0,
+      "recall": 0.9444,
+      "f1": 0.9714,
+      "support": 36
+    },
+    {
+      "class_name": "fish_10",
+      "precision": 0.9773,
+      "recall": 0.9556,
+      "f1": 0.9663,
+      "support": 45
+    },
+    {
+      "class_name": "fish_11",
+      "precision": 0.8667,
+      "recall": 0.9286,
+      "f1": 0.8966,
+      "support": 14
+    },
+    {
+      "class_name": "fish_12",
+      "precision": 1.0,
+      "recall": 0.9545,
+      "f1": 0.9767,
+      "support": 22
+    },
+    {
+      "class_name": "fish_13",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 27
+    },
+    {
+      "class_name": "fish_14",
+      "precision": 1.0,
+      "recall": 0.8571,
+      "f1": 0.9231,
+      "support": 14
+    },
+    {
+      "class_name": "fish_15",
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.9333,
+      "support": 7
+    },
+    {
+      "class_name": "fish_16",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 31
+    },
+    {
+      "class_name": "fish_17",
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.9333,
+      "support": 7
+    },
+    {
+      "class_name": "fish_18",
+      "precision": 0.875,
+      "recall": 0.875,
+      "f1": 0.875,
+      "support": 8
+    },
+    {
+      "class_name": "fish_19",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    },
+    {
+      "class_name": "fish_20",
+      "precision": 0.6667,
+      "recall": 0.6667,
+      "f1": 0.6667,
+      "support": 3
+    },
+    {
+      "class_name": "fish_21",
+      "precision": 1.0,
+      "recall": 0.3333,
+      "f1": 0.5,
+      "support": 3
+    },
+    {
+      "class_name": "fish_22",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 6
+    },
+    {
+      "class_name": "fish_23",
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    }
+  ]
+}
