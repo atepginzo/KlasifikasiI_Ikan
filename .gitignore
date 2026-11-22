@@ -1,0 +1,63 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Database
+*.db
+*.sqlite3
+data/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Input assets (originals, not committed)
+_inputs/
+
+# Dataset (never commit raw data)
+dataset/
+dataset_split/
+*.csv.bak
+
+# TensorFlow / Keras cache
+.keras/
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Logs
+*.log
+
+# Temporary
+tmp/
+temp/
+
+# Agent/skill local folders (uipro)
+.agents/
+.claude/
