@@ -42,6 +42,12 @@ button {
 
 a {
   color: var(--color-primary);
+  text-decoration: underline;
+}
+
+nav a,
+header a,
+.btn {
   text-decoration: none;
 }
 

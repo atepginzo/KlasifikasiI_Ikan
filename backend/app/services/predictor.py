@@ -14,11 +14,15 @@ from app.core.config import settings
 
 logger = logging.getLogger("app.predictor")
 
+INTERPOLATION = Image.NEAREST
+
+
 def _get_interpolation():
     method = getattr(settings, "preprocess_interpolation", "nearest").lower()
     if method == "bilinear":
         return Image.BILINEAR
-    return Image.NEAREST
+    return INTERPOLATION
+
 
 IMAGE_SIZE = (128, 128)
 

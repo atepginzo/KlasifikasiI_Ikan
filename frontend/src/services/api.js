@@ -111,11 +111,15 @@ export async function getModelInfo(options) {
 export async function predictImage(file, options = {}) {
   const form = new FormData();
   form.append("file", file);
-  return request("/api/v1/predict", {
+  const data = await request("/api/v1/predict", {
     method: "POST",
     body: form,
     signal: options.signal,
   });
+  if (data && data.top_predictions && !data.top5) {
+    data.top5 = data.top_predictions;
+  }
+  return data;
 }
 
 export async function listPredictions(options) {

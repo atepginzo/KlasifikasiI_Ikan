@@ -84,7 +84,6 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav
-          style={{ display: "flex", gap: "4px", alignItems: "center" }}
           aria-label="Navigasi utama"
           className="desktop-nav"
         >
@@ -162,11 +161,11 @@ export default function Navbar() {
       )}
 
       <style>{`
-        .desktop-nav { display: flex; }
+        .desktop-nav { display: flex; gap: 4px; align-items: center; }
         .mobile-menu-btn { display: none; }
         @media (max-width: 767px) {
-          .desktop-nav { display: none; }
-          .mobile-menu-btn { display: inline-flex; }
+          .desktop-nav { display: none !important; }
+          .mobile-menu-btn { display: inline-flex !important; }
         }
       `}</style>
     </header>

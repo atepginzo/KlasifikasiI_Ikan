@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     preprocess_interpolation: str = "nearest"
 
     # CORS
-    allowed_origins: str = "http://localhost:5173"
+    allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     # Database
     database_url: str = "sqlite:///./data/app.db"

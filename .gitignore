@@ -50,6 +50,8 @@ dataset_split/
 htmlcov/
 .coverage
 coverage.xml
+frontend/test-results/
+frontend/playwright-report/
 
 # Logs
 *.log

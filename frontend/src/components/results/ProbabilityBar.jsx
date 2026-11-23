@@ -16,6 +16,9 @@ export default function ProbabilityBar({ label, value, isTop, rank }) {
 
   return (
     <div
+      data-testid="probability-bar-row"
+      data-rank={rank}
+      data-class={label}
       style={{
         padding: isTop ? "0.75rem" : "0.5rem 0",
         borderRadius: isTop ? "var(--radius-md)" : 0,
@@ -33,6 +36,7 @@ export default function ProbabilityBar({ label, value, isTop, rank }) {
         }}
       >
         <span
+          data-testid="probability-label"
           style={{
             fontSize: "var(--font-size-sm)",
             fontFamily: "var(--font-family-mono)",
@@ -43,6 +47,7 @@ export default function ProbabilityBar({ label, value, isTop, rank }) {
           {rank}. {label}
         </span>
         <span
+          data-testid="probability-value"
           style={{
             fontSize: "var(--font-size-sm)",
             fontWeight: isTop ? "var(--font-weight-bold)" : "var(--font-weight-normal)",

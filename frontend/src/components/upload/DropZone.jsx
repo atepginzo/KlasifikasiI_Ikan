@@ -8,8 +8,13 @@ const DEFAULT_MAX_MB = 5;
 function validateFile(file, limits) {
   const maxMb = limits?.max_upload_mb ?? DEFAULT_MAX_MB;
   const allowedTypes = limits?.allowed_types ?? ALLOWED_TYPES;
+  const allowedExtensions = limits?.allowed_extensions ?? ALLOWED_EXTENSIONS;
 
-  if (!allowedTypes.includes(file.type)) {
+  const ext = file.name ? "." + file.name.split(".").pop().toLowerCase() : "";
+  const typeMatches = file.type ? allowedTypes.includes(file.type) : false;
+  const extMatches = allowedExtensions.includes(ext);
+
+  if (!typeMatches && !extMatches) {
     return "Format tidak didukung. Gunakan JPG, PNG, atau WebP.";
   }
   if (file.size > maxMb * 1024 * 1024) {
@@ -86,10 +91,6 @@ export default function DropZone({ onFileSelect, limits, disabled }) {
         onDragLeave={handleDragLeave}
         onClick={() => !disabled && inputRef.current?.click()}
         onKeyDown={handleKeyDown}
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        aria-disabled={disabled}
-        aria-label="Area unggah gambar ikan — seret dan lepas atau klik untuk memilih"
         style={{
           opacity: disabled ? 0.6 : 1,
           cursor: disabled ? "not-allowed" : "pointer",

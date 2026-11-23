@@ -6,10 +6,13 @@ export default function ResultCard({ result, perClassMetrics, focusRef }) {
   const {
     predicted_class,
     confidence,
-    top5,
+    top5: propTop5,
+    top_predictions,
     inference_ms,
     prediction_id: _prediction_id,
   } = result;
+
+  const top5 = propTop5 ?? top_predictions ?? [];
 
   const confidencePct = (confidence * 100).toLocaleString("id-ID", {
     maximumFractionDigits: 1,
@@ -78,6 +81,7 @@ export default function ResultCard({ result, perClassMetrics, focusRef }) {
           Label Kelas Prediksi
         </div>
         <div
+          data-testid="predicted-class"
           style={{
             fontSize: "2.25rem",
             fontWeight: "var(--font-weight-bold)",
@@ -106,6 +110,7 @@ export default function ResultCard({ result, perClassMetrics, focusRef }) {
             Tingkat keyakinan model:
           </span>
           <span
+            data-testid="predicted-confidence"
             style={{
               fontSize: "var(--font-size-xl)",
               fontWeight: "var(--font-weight-bold)",
